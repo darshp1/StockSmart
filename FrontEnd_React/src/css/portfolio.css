@@ -1,0 +1,4 @@
+tr,td, th{
+    border: None;
+    text-align: left;
+}

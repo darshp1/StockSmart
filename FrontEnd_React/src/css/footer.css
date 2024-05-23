@@ -1,0 +1,16 @@
+
+footer {
+    margin-top: auto;
+    background-color: #f0f0f0;
+    text-align: center;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-spacing: 0.1vw;
+    font-size: 1vw;
+}
+
+footer a{
+    margin-left: 0.3vw;
+}

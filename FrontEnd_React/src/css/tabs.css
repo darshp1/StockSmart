@@ -1,0 +1,153 @@
+/* tabs.css */
+.tab {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    height: 5vh;
+  }
+
+  .x{
+    padding-top: 2vh;
+    padding-left: 15vw;
+    padding-right: 15vw;
+    min-height: 48vh;
+  }
+  
+  .tab button {
+    display: flex;
+    justify-content: center;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.7vw 1.5vw 0.5vw 1.5vw;
+    /* have to change this one above*/
+    transition: 0.2s;
+    /* font-size: 0.8vw; */
+    text-align: center;
+    width: 25%;
+    background-color: white;
+  }
+  
+  .tab button:hover,
+  .tab button.active:hover {
+    background-color: #e8f1f9;
+  }
+  
+  .tab button.active {
+    color: rgb(23, 23, 215); 
+    border-bottom: 2px solid rgb(23, 23, 215); 
+    background-color: transparent;
+  }
+  
+  /* whole div of that tabs*/
+  .tabcontent {
+    display: none;
+    border-top: none;
+    min-height: 40vh;
+    margin-bottom: 3vh;
+  }
+  
+
+  .tabcontent.active {
+    display: block;
+  }
+  
+  .Summary_horizontal_div{
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+ 
+  }
+
+  .Summary_horizontal_div .div1,
+  .Summary_horizontal_div .div2 {
+   
+    box-sizing: border-box; 
+   
+}
+
+.news_divs {
+    margin: 0.5vw 0vw 1.5vw 0vw;
+    display: flex;
+    height: 10vh;
+    background-color: #f1f1f1;
+    align-items: center;
+    box-sizing: border-box;
+    border: 1px black solid;
+    border-radius: 0.5vw;
+  }
+  
+  .news_divs .news_img {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .news_divs .news_txt {
+    width: 75%;
+    font-size: 1vw;
+    box-sizing: border-box;
+  }
+  
+  .news_divs .news_img img {
+    width: 90%;
+    height: 80%;
+    border-radius: 0.5vw;
+  }
+
+  table {
+    margin: 0 auto;
+    margin-top: 1vw;
+    border-collapse: collapse;
+    /* font-size: 0.8vw; */
+}
+
+th{
+    text-align: center;
+
+}
+
+td{
+    text-align: center;
+
+}
+
+th,td{
+    padding: 0.5vw 2vw 0.5vw 2vw;
+    border-top: 0.1vw solid rgb(242,243,244);
+    border-bottom: 0.1vw solid rgb(242,243,244);
+}
+
+#Insight_heading{
+  font-size: 1.2vw;
+}
+
+.summary_p1{
+  font-size: 0.75vw;
+}
+
+.bold_summary_p1 {
+  font-weight: bold;
+}
+
+@media (min-width: 992px) {
+  .news_images {
+    height: 90px;
+
+  }
+}
+
+@media (max-width: 991px) {
+  .news_images {
+    height: 200px;
+  }
+}
+
+
+
+.MuiTabs-scrollButtons.Mui-disabled{
+  opacity: 0.4 !important;
+}

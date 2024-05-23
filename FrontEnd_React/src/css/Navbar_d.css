@@ -1,0 +1,31 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.nav_right {
+    background-color: transparent;
+    font-size: 0.75vw;
+    padding: 0.3vw 0.8vw;
+    margin-left: 1vw;
+    border-color: transparent !important;
+    border-radius: 0.9vw !important;
+    color: rgb(198, 193, 193) !important;
+  }
+  
+  .nav_right:hover {
+    color: white !important;
+    background-color: transparent !important;
+  }
+  
+  .nav_right.active {
+    border-color: whitesmoke !important;
+    color: white !important;
+    /* Add other active styles here */
+}
+  
+
+.White_font{
+    font-size: 1vw;
+    color: white;
+}
+

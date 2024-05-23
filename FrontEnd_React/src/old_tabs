@@ -1,0 +1,393 @@
+import React, { useState } from 'react';
+import './css/tabs.css';
+import Chart1 from './Chart1';
+import InsightChart1 from './InsightChart1';
+import InsightChart2 from './InsightChart2';
+import MainChart from './MainChart';
+import MainChart_m from './MainChart_m';
+import NavSticky1 from './NavSticky1';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+
+const Tabs = ({
+  companyData,
+  stockData,
+  chartData,
+  peersData,
+  newsData,
+  insiderData,
+  recommendationData,
+  earningsData,
+}) => {
+  let tmsrp = 0, tchange = 0, pmsrp = 0, nmsrp = 0, pchange = 0, nchange = 0;
+
+  //console.log(insiderData.data[0]);
+
+
+  const maxItemsToShow = Math.min(20, newsData.length);
+
+  const newsItems2 = [];/*
+  for (let i = 2; i <= maxItemsToShow; i += 2) {
+    if (i < newsData.length) {
+      const news = newsData[i];
+      newsItems2.push(
+        <div key={i} className='news_divs'>
+          <div className='news_img'>
+            <img src={news.image} alt="problem" />
+          </div>
+          <div className='news_txt'>
+            <span>{news.headline}</span>
+          </div>
+        </div>
+      );
+    }
+  }
+  */
+
+  const minItemsToShow = 10;
+  const newsItems1 = [];
+
+  // for news click alert type div
+  const [activeTab, setActiveTab] = useState('Summary_div');
+  const [selectedNews, setSelectedNews] = useState(null);
+
+
+
+
+  const Open_stock_t = (tab_n) => {
+    setActiveTab(tab_n);
+  };
+
+  const news_open = (
+    selectedNews ? (
+      <div className="selected-news-container" style={{ zIndex: 1, position: 'sticky', top: '28%', left: '50%', transform: 'translate(-50%, -50%)', width: '25vw', height: '50vh', backgroundColor: 'white', borderRadius: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #ccc', padding: '1vw 1vw 0vw 1vw' }}>
+          <div>
+            <h2>{selectedNews.source}</h2>
+            <p>{selectedNews.datetime}</p>
+          </div>
+          <img src='x.svg' style={{ height: '1.2vw', width: '1.2vw', borderBottom: '1px solid blue', cursor: 'pointer', marginLeft: 'auto' }} onClick={() => setSelectedNews(null)} alt="Close"></img>
+        </div>
+        <div className="selected-news" style={{ padding: '1vw', textAlign: 'left' }}>
+          <p><strong>{selectedNews.headline}</strong> </p>
+          <p>{selectedNews.summary}</p>
+          <p>For more details click <a href={selectedNews.url}>here</a></p>
+          <div style={{ border: '1px solid blue', padding: '1vw', display: 'flex', alignItems: 'center', flexDirection: 'column', borderRadius: '10px' }}>
+            <span style={{ marginRight: 'auto', paddingBottom: '1vw' }}>Share</span>
+            <div style={{ display: 'flex', marginRight: 'auto' }}>
+              <img src='fb.svg' alt="Facebook" style={{ height: '3vw', width: '3vw' }}></img>
+              <img src='x-twitter.svg' alt="Twitter" style={{ height: '3vw', width: '3vw' }}></img>
+            </div>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div></div>
+    )
+  );
+  
+
+
+  const handleDivClick = (news) => {
+    // Add your functionality here, using the 'news' object if needed
+    console.log('Clicked on news:', news);
+    setSelectedNews(news);
+  };
+
+  let i = 0; 
+  let k = 1; 
+  
+  while ((newsItems1.length < minItemsToShow || newsItems2.length < minItemsToShow) && i < newsData.length) {
+    const news = newsData[i];
+    const check = news.image && news.headline && news.summary;
+  
+    if (check) {
+      if (k % 2 === 1) { 
+        if (newsItems1.length < minItemsToShow) { 
+          newsItems1.push(
+            <div key={i} className='news_divs' onClick={() => handleDivClick(news)}>
+              <div className='news_img'>
+                <img src={news.image} alt="news" />
+              </div>
+              <div className='news_txt'>
+                <span>{news.headline}</span>
+              </div>
+            </div>
+          );
+        }
+      } else { 
+        if (newsItems2.length < minItemsToShow) { 
+          newsItems2.push(
+            <div key={i} className='news_divs' onClick={() => handleDivClick(news)}>
+              <div className='news_img'>
+                <img src={news.image} alt="news" />
+              </div>
+              <div className='news_txt'>
+                <span>{news.headline}</span>
+              </div>
+            </div>
+          );
+        }
+      }
+      k += 1; 
+    }
+  
+    i += 1; 
+  }
+
+
+    for (let i = 0; i < insiderData.data.length; i++) {
+      if (typeof insiderData.data[i].mspr === 'number') {
+        tmsrp += insiderData.data[i].mspr;
+        tchange += insiderData.data[i].change;
+        //positive negative msrp
+        if (insiderData.data[i].mspr >= 0) {
+          pmsrp += insiderData.data[i].mspr;
+        }
+        else {
+          nmsrp += insiderData.data[i].mspr;
+        }
+
+        // positive negative change
+        if (insiderData.data[i].mspr >= 0) {
+          pchange += insiderData.data[i].change;
+        }
+        else {
+          nchange += insiderData.data[i].change;
+        }
+      }
+      //console.log(insiderData.data[i].mspr,typeof insiderData.data[i].msrp);
+    }
+
+    //console.log(tmsrp,"yo");
+
+    // for insider data
+
+
+  
+  return (
+    <div>
+      <NavSticky1
+           selectedNews={selectedNews} setSelectedNews={setSelectedNews}  
+                />
+      <div className='x'>
+        <div className="tab">
+          <button
+            className={`tablinks ${activeTab === 'Summary_div' ? 'active' : ''}`}
+            onClick={() => Open_stock_t('Summary_div')}
+          >
+            Summary
+          </button>
+          <button
+            className={`tablinks ${activeTab === 'Top_News_div' ? 'active' : ''}`}
+            onClick={() => Open_stock_t('Top_News_div')}
+          >
+            Top News
+          </button>
+          <button
+            className={`tablinks ${activeTab === 'Charts_div' ? 'active' : ''}`}
+            onClick={() => Open_stock_t('Charts_div')}
+          >
+            Charts
+          </button>
+          <button
+            className={`tablinks ${activeTab === 'Insights_div' ? 'active' : ''}`}
+            onClick={() => Open_stock_t('Insights_div')}
+          >
+            Insights
+          </button>
+        </div>
+
+        <div id="Summary_div" className={`tabcontent ${activeTab === 'Summary_div' ? 'active' : ''}`}>
+          <div className='Summary_horizontal_div'>
+            <div className='div1'>
+              <div className='Summary_horizontal_div'>
+                <div className='div1'>
+                  <span className='summary_p1'>
+                    <span className='bold_summary_p1'>High Price: </span>{stockData.h}
+                  </span>
+                  <br></br>
+                  <span className='summary_p1'>
+                    <span className='bold_summary_p1'>Low Price: </span>{stockData.l}
+                  </span>
+                  <br></br>
+                  <span className='summary_p1'>
+                    <span className='bold_summary_p1'>Open Price: </span>{stockData.o}
+                  </span>
+                  <br></br>
+                  <span className='summary_p1'>
+                    <span className='bold_summary_p1'>Prev. Close: </span>{stockData.pc}
+                  </span>
+
+                </div>
+                <div className='div2'>
+                  {/* nothing in here*/}
+                </div>
+              </div>
+              <div >
+                <br></br>
+                <span style={{ textDecoration: 'underline', fontSize: '1.2vw', fontWeight: '450' }}>About the company.</span>
+
+                <br></br>
+                <br></br>
+                <p className='summary_p1'>
+                  <span className='bold_summary_p1'> IPO Start Date:</span> {companyData.ipo}
+                </p>
+                <p className='summary_p1'>
+                  <span className='bold_summary_p1'> Industry:</span> {companyData.finnhubIndustry}
+                </p>
+                <p className='summary_p1'>
+                  <span className='bold_summary_p1'>WebPage: </span><a href='{companyData.weburl}'> {companyData.weburl}</a>
+                </p>
+                <p className='summary_p1'>
+                  <span className='bold_summary_p1'>Company peers:</span>
+                </p>
+                {peersData && peersData.length > 0 ? (
+                  peersData.map((peer, index) => (
+                    <React.Fragment key={index}>
+                        {!peer.includes('.') && ( // Check if '.' is not present in peer
+                          <a href={`http://localhost:3000/search/${peer}`} style={{ marginRight: '0.1vw', fontSize: '0.75vw' }}>
+                            {peer},
+                          </a>
+                        )}
+                    </React.Fragment>
+                  ))
+                ) : (<p></p>)}
+              </div>
+
+            </div>
+            <div className='div2'>
+              <Chart1 />
+            </div>
+          </div>
+
+
+          {/*earningsData && <p>{chartData.count} gwt</p>*/}
+
+        </div>
+
+        <div id="Top_News_div" className={`tabcontent ${activeTab === 'Top_News_div' ? 'active' : ''}`}>
+          <div className='Summary_horizontal_div'>
+            <div className='div1'>
+
+              {/*<div className='news_divs'>
+                    <div className='news_img'>
+                        <img src={newsData[0].image} alt="problem"/>
+                    </div>
+                    <div className='news_txt'>
+                        <span> {newsData[0].headline}</span>
+                    </div>
+
+                    </div>*/}
+              {newsItems1}
+            </div>
+            <div className='div2'>
+              {newsItems2}
+              
+              {/*selectedNews && (
+                <div className="selected-news-container" style={{ zIndex: 1, position: 'sticky', top: '28%', left: '50%', transform: 'translate(-50%, -50%)', width: '25vw', height: '50vh', backgroundColor: 'white', borderRadius: '10px'  }}>
+
+                  <div style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #ccc', padding: '1vw 1vw 0vw 1vw' }}>
+                    <div>
+                      <h2 >{selectedNews.source}</h2>
+
+                      <p>{selectedNews.datetime}</p>
+                    </div>
+                    <img src='x.svg' style={{ height: '1.2vw', width: '1.2vw', borderBottom: '1px solid blue', cursor: 'pointer', marginLeft: 'auto' }} onClick={() => setSelectedNews(null)} ></img>
+
+                  </div >
+                  <div className="selected-news" style={{ padding: '1vw',  textAlign: 'left'  }}>
+                    <p><strong>{selectedNews.headline}</strong> </p>
+                    <p> {selectedNews.summary}</p>
+                    <p>For more details click on <a href='{selectedNews.url}'>here</a></p>
+
+
+                  
+                  <div style={{ border: '1px solid blue', padding: '1vw', display: 'flex', alignItems: 'center', flexDirection: 'column', borderRadius: '10px' }}>
+                    <span style={{ marginRight: 'auto', paddingBottom: '1vw'}}>Share</span>
+                   
+                    <div style={{ display: 'flex', marginRight: 'auto'}}>
+                      <img src='fb.svg' style={{ height: '3vw', width: '3vw' }}></img>
+                      <img src='x-twitter.svg' style={{ height: '3vw', width: '3vw' }}></img>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              )*/}
+            </div>
+          </div>
+        </div>
+
+        <div id="Charts_div" className={`tabcontent ${activeTab === 'Charts_div' ? 'active' : ''}`}>
+
+          <div>
+            <MainChart_m
+              chartData={chartData}
+            />
+          </div>
+        </div>
+
+        <div id="Insights_div" className={`tabcontent ${activeTab === 'Insights_div' ? 'active' : ''}`}>
+          <div>
+            <span id="Insight_heading">Insider Sentiment</span>
+            <table border="0">
+
+              <tr>
+                <th >{companyData.name}</th>
+                <th>MSRP</th>
+                <th>Change</th>
+              </tr>
+              <tr>
+                <th>Total</th>
+                <td>{tmsrp.toFixed(2)}</td>
+                <td>{tchange}</td>
+              </tr>
+              <tr>
+                <th>Positive</th>
+                <td>{pmsrp.toFixed(2)}</td>
+                <td>{pchange}</td>
+              </tr>
+              <tr>
+                <th>Negative</th>
+                <td>{nmsrp.toFixed(2)}</td>
+                <td>{nchange}</td>
+              </tr>
+
+            </table>
+          </div>
+          <div className='Summary_horizontal_div'>
+            <div className='div1'>
+              <InsightChart1
+                recommendationData={recommendationData}
+              />
+            </div>
+            <div className='div2'>
+              <InsightChart2
+                earningsData={earningsData}
+              />
+            </div>
+          </div>
+          {/*
+        {earningsData && earningsData.length > 0 ? (
+            earningsData.map((dataItem, index) => (
+                <div key={index}>
+                    <span>Actual: {dataItem.actual}</span>
+                    <span>Estimate: {dataItem.estimate}</span>
+                    <span>Period: {dataItem.period}</span>
+                    
+                </div>
+            ))
+        ) : (
+            <p></p>
+        )}
+        */}
+
+        </div>
+
+      </div>
+
+    </div>
+  );
+};
+
+export default Tabs;

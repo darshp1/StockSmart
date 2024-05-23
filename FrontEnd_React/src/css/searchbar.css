@@ -1,0 +1,59 @@
+.bodydiv{
+    min-height: 90vh;
+}
+
+#middle_stock_class{
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vw;
+    font-size: 1.8vw;
+    text-align: center;
+}
+
+.searchf{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 24%;
+    height: 5%;
+    padding: 0.3% 1% 0.3% 1%;
+    border: 3px solid #ccc;
+    border-radius: 30px; 
+    border-color: rgb(3, 3, 169);
+    background-color: white;
+    position: relative;
+    overflow: visible;
+}
+
+  .searchf ul {
+    position: absolute;
+    top: 80%;
+    left: 4.5%;
+    width: 77%;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-height: 10.5vw;
+    overflow-y: auto;
+    box-shadow: -10px 10px 9px 7px rgba(0,0,0,0.1);
+    font-size: 0.9vw;
+    text-align: left;
+  }
+  
+  .searchf li {
+    padding: 0.5vw;
+    cursor: pointer;
+  }
+
+.find{
+    font-size: 0.9vw;   
+    width: 88%;
+}
+
+.Bootstrap_search{
+    background-color: transparent;
+    border: transparent; 
+    color: rgb(3, 3, 169);
+    /* font-size: 0.9vw;
+    padding-left: 0.7vw; */
+}
