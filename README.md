@@ -26,11 +26,7 @@ StockSmart is a web application designed to provide users with the latest update
 
 <!--![Datasets](images/datasets.png)-->
 
----
 
-## Proposed Model
-
-![Proposed Model](images/model_2.png)
 
 ---
 
