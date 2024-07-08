@@ -10,12 +10,9 @@ var jsonParser = bodyParser.json()
 
 // create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-// mongodb+srv://darshpat:<password>@cluster0.93epfez.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
-// mongodb+srv://darshpat:<password>@cluster0.93epfez.mongodb.net/
-// pB6fz3sO1L83U8Qe
 
-const dbms_url = "mongodb+srv://darshpat:pB6fz3sO1L83U8Qe@cluster0.93epfez.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const dbms_url = "your url"
 
 mongoose.connect(dbms_url, {
     useNewUrlParser: true,
@@ -29,7 +26,7 @@ mongoose.connect(dbms_url, {
 
 
 const app = express();
-const apiKey = 'cmvcsj9r01qog1iuu33gcmvcsj9r01qog1iuu340';
+const apiKey = 'your api key';
 
 function getDates() {
   const currentDate = new Date();
